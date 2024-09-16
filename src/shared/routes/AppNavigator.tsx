@@ -11,7 +11,7 @@ function AppNavigator() {
   return (
     <Stack.Navigator
       initialRouteName="HomeScreen"
-      screenOptions={{headerShown: false, animation: 'simple_push'}}>
+      screenOptions={{headerShown: false, animation: 'slide_from_right'}}>
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="HistoryScreen" component={HistoryScreen} />
       <Stack.Screen

@@ -1,26 +1,29 @@
 import React from 'react';
-import AppNavigator from './shared/navigator/AppNavigator';
-import SplashProvider from './shared/provider/SplashProvider';
+import AppNavigator from './shared/routes/AppNavigator';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {colors} from './shared/utils';
 import {NavigationContainer} from '@react-navigation/native';
+
+import {colors} from './shared/utils';
+import {SplashProvider, ToastProvider} from './shared/provider';
 
 function AppContainer() {
   return (
-    <SplashProvider>
-      <SafeAreaProvider>
-        <NavigationContainer
-          theme={{
-            dark: false,
-            colors: {
-              ...colors,
-              notification: colors.error,
-            },
-          }}>
-          <AppNavigator />
-        </NavigationContainer>
-      </SafeAreaProvider>
-    </SplashProvider>
+    <SafeAreaProvider>
+      <SplashProvider>
+        <ToastProvider>
+          <NavigationContainer
+            theme={{
+              dark: false,
+              colors: {
+                ...colors,
+                notification: colors.error,
+              },
+            }}>
+            <AppNavigator />
+          </NavigationContainer>
+        </ToastProvider>
+      </SplashProvider>
+    </SafeAreaProvider>
   );
 }
 

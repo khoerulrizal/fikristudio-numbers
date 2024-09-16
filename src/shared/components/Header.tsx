@@ -19,7 +19,7 @@ const Header = ({title, type}: {title: string; type: HeaderType}) => {
           <ArrowLeftIcon />
         </TouchableOpacity>
       ) : (
-        <View />
+        <View style={stylesheet.emptyView} />
       )}
       <Text style={stylesheet.titleText}>{title}</Text>
       {type === 'home' ? (
@@ -29,7 +29,7 @@ const Header = ({title, type}: {title: string; type: HeaderType}) => {
           <HistoryIcon />
         </TouchableOpacity>
       ) : (
-        <View />
+        <View style={stylesheet.emptyView} />
       )}
     </View>
   );
@@ -46,7 +46,9 @@ const stylesheet = StyleSheet.create({
     fontSize: 20,
     fontFamily: 'Inter-SemiBold',
     color: colors.white,
+    alignSelf: 'center',
   },
+  emptyView: {height: 36, width: 36, backgroundColor: 'transparent'},
   iconButtonWrapper: {
     height: 36,
     width: 36,

@@ -1,7 +1,7 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {PropsWithChildren, useState} from 'react';
-import {Animated, Dimensions, StatusBar} from 'react-native';
+import {Animated, Dimensions, StatusBar, StyleSheet} from 'react-native';
 import BootSplash from 'react-native-bootsplash';
-import {colors} from '../utils';
 
 type Props = {
   onAnimationEnd: () => void;
@@ -46,8 +46,26 @@ const AnimatedBootSplash = ({onAnimationEnd}: Props) => {
 
   return (
     <>
-      <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
+      <StatusBar
+        backgroundColor="transparent"
+        translucent
+        barStyle="light-content"
+      />
       <Animated.View {...container} style={[container.style, {opacity}]}>
+        <Animated.View style={stylesheet.rightDecoration}>
+          <Animated.Image
+            source={require('../assets/images/right-decoration.png')}
+            resizeMode="contain"
+            style={{width: 280, height: 250}}
+          />
+        </Animated.View>
+        <Animated.View style={stylesheet.leftDecoration}>
+          <Animated.Image
+            source={require('../assets/images/left-decoration.png')}
+            resizeMode="contain"
+            style={{width: 280, height: 250}}
+          />
+        </Animated.View>
         <Animated.Image
           {...logo}
           style={[logo.style, {transform: [{translateY}]}]}
@@ -73,5 +91,20 @@ const SplashProvider = ({children}: PropsWithChildren) => {
     </>
   );
 };
+
+const stylesheet = StyleSheet.create({
+  rightDecoration: {
+    position: 'absolute',
+    top: -16,
+    right: -80,
+    zIndex: -10,
+  },
+  leftDecoration: {
+    position: 'absolute',
+    bottom: 32,
+    left: -80,
+    zIndex: -10,
+  },
+});
 
 export default SplashProvider;
