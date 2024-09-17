@@ -10,7 +10,7 @@ const ListNumbers = ({data}: {data: string[]}) => {
       <FlatList
         {...{data}}
         numColumns={17}
-        contentContainerStyle={{padding: 20}}
+        contentContainerStyle={{paddingHorizontal: 20, paddingVertical: 10}}
         renderItem={({item}) => (
           <Text style={stylesheet.itemText}>{item + '   * '}</Text>
         )}

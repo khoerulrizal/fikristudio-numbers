@@ -7,25 +7,37 @@ import {colors, getColorOpacity} from '../utils';
 type ChipsProps = {
   isActive: boolean;
   label: string;
-  value: NumbersType;
-  onPress: (v: NumbersType) => void;
+  value: NumbersType | number;
+  onPress: (v: NumbersType | number) => void;
+  type?: 'primary' | 'secondary';
 };
-const Chips = ({isActive, label, value, onPress}: ChipsProps) => {
+const Chips = ({isActive, label, value, onPress, type}: ChipsProps) => {
   return (
     <TouchableOpacity
       onPress={() => onPress(value)}
       style={StyleSheet.flatten([
         stylesheet.container,
+        type === 'secondary' && {paddingHorizontal: 10, paddingVertical: 10},
         {
           backgroundColor: isActive
-            ? colors.gray
+            ? type === 'secondary'
+              ? colors.primary
+              : colors.gray
+            : type === 'secondary'
+            ? 'transparent'
             : getColorOpacity(colors.gray, 0.25),
         },
       ])}>
       <Text
         style={StyleSheet.flatten([
           stylesheet.labelText,
-          {color: isActive ? colors.white : colors.black},
+          {
+            color: isActive
+              ? colors.white
+              : type === 'secondary'
+              ? colors.primary
+              : colors.black,
+          },
         ])}>
         {label}
       </Text>

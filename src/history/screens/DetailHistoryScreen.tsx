@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {BaseView, Text} from '../../shared/components';
 import {ActivityIndicator, View} from 'react-native';
 import styles from '../../shared/styles';
@@ -10,10 +10,11 @@ import {
   CopyButton,
   ListNumbers,
   NumbersFilterChips,
+  NumbersTab,
 } from '../../shared/templates';
 import {NumbersType} from '../../shared/types/numbers';
 import {useNumbers} from '../../shared/hooks';
-import {colors} from '../../shared/utils';
+import {colors, splitArray} from '../../shared/utils';
 
 const DetailHistoryScreen = () => {
   const [activeFilter, setActiveFilter] = useState<NumbersType>('random');
@@ -22,6 +23,35 @@ const DetailHistoryScreen = () => {
   const data = params?.data;
 
   const {result, getNumbers, isLoading} = useNumbers('history');
+  const [activeIndex, setActiveIndex] = useState(-1);
+
+  const groupedRandomValues = useMemo(() => {
+    return result?.random ? splitArray(result?.random, 9) : [];
+  }, [result?.random]);
+
+  const groupedDoubleValues = useMemo(() => {
+    return result?.double ? splitArray(result?.double, 8) : [];
+  }, [result?.double]);
+
+  const numbersData = useMemo(() => {
+    if (activeIndex === -1 || activeFilter === 'triple') {
+      return result?.[activeFilter];
+    } else {
+      if (activeFilter === 'random') {
+        return groupedRandomValues[activeIndex];
+      }
+      if (activeFilter === 'double') {
+        return groupedDoubleValues[activeIndex];
+      }
+      return result?.[activeFilter];
+    }
+  }, [
+    activeFilter,
+    activeIndex,
+    groupedDoubleValues,
+    groupedRandomValues,
+    result,
+  ]);
 
   useEffect(() => {
     getNumbers(data?.numbers?.join(''));
@@ -42,16 +72,21 @@ const DetailHistoryScreen = () => {
         {...{activeFilter, setActiveFilter}}
         style={{paddingHorizontal: 20}}
       />
+      <NumbersTab
+        style={{paddingHorizontal: 20}}
+        type={activeFilter}
+        {...{activeIndex, setActiveIndex}}
+      />
       <View style={{flex: 1}}>
         {!isLoading ? (
-          <ListNumbers data={result?.[activeFilter] || []} />
+          <ListNumbers data={numbersData} />
         ) : (
           <View style={[styles.flex1, styles.flexCenter]}>
             <ActivityIndicator size="large" color={colors.primary} />
           </View>
         )}
       </View>
-      <CopyButton textToCopy={result?.[activeFilter]?.join('*')} />
+      <CopyButton textToCopy={numbersData?.join('*')} />
     </BaseView>
   );
 };

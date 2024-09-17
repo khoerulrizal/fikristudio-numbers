@@ -23,6 +23,7 @@ const NumbersFilterChips = ({
   return (
     <View style={StyleSheet.flatten([stylesheet.container, style])}>
       {filterData?.map(data => (
+        // @ts-ignore
         <Chips isActive={activeFilter === data.value} {...{...data, onPress}} />
       ))}
     </View>
@@ -35,7 +36,6 @@ const stylesheet = StyleSheet.create({
     alignItems: 'center',
     columnGap: 10,
     width: '100%',
-    paddingBottom: 8,
   },
 });
 
