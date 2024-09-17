@@ -35,6 +35,7 @@ const stylesheet = StyleSheet.create({
     alignItems: 'center',
     columnGap: 10,
     width: '100%',
+    paddingBottom: 8,
   },
 });
 

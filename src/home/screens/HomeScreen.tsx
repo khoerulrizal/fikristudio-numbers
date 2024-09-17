@@ -45,7 +45,7 @@ const HomeScreen = () => {
       </View>
 
       {result.random && (
-        <CopyButton textToCopy={result?.[activeFilter]?.join(' * ')} />
+        <CopyButton textToCopy={result?.[activeFilter]?.join('*')} />
       )}
     </BaseView>
   );

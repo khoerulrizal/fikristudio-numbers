@@ -51,7 +51,7 @@ const DetailHistoryScreen = () => {
           </View>
         )}
       </View>
-      <CopyButton textToCopy={result?.[activeFilter]?.join(' * ')} />
+      <CopyButton textToCopy={result?.[activeFilter]?.join('*')} />
     </BaseView>
   );
 };
