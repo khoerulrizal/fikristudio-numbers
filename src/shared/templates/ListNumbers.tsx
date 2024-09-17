@@ -4,7 +4,7 @@ import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {ScrollView, Text} from '../components';
 
-const ListNumbers = ({data}: {data: number[]}) => {
+const ListNumbers = ({data}: {data: string[]}) => {
   return (
     <ScrollView horizontal>
       <FlatList
@@ -12,7 +12,7 @@ const ListNumbers = ({data}: {data: number[]}) => {
         numColumns={17}
         contentContainerStyle={{padding: 20}}
         renderItem={({item}) => (
-          <Text style={stylesheet.itemText}>{item + ' * '}</Text>
+          <Text style={stylesheet.itemText}>{item + '   * '}</Text>
         )}
         ItemSeparatorComponent={() => <View style={{padding: 4}} />}
       />
@@ -24,6 +24,9 @@ const stylesheet = StyleSheet.create({
   itemText: {
     fontSize: 18,
     fontFamily: 'Inter-Medium',
+    textAlign: 'right',
+    width: 80,
+    paddingRight: 5,
   },
 });
 
