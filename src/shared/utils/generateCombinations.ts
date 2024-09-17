@@ -11,6 +11,15 @@ async function generateCombinations(
 
   const inputDigits: string[] = userInput.split('');
 
+  // Helper function to check if all digits are different from the user input digits at the same index
+  const isDifferentFromInput = (number: string): boolean => {
+    return number
+      .split('')
+      .every(
+        (digit: string, index: number): boolean => digit !== inputDigits[index],
+      );
+  };
+
   const isAllSameDigits = (number: string): boolean => {
     return new Set(number.split('')).size === 1;
   };
@@ -26,27 +35,28 @@ async function generateCombinations(
       continue;
     }
 
-    if (
-      hasUniqueDigits(number) &&
-      number
-        .split('')
-        .every(
-          (digit: string, index: number): boolean =>
-            digit !== inputDigits[index],
-        )
-    ) {
+    // Apply the condition to all cases
+    if (!isDifferentFromInput(number)) {
+      continue;
+    }
+
+    // Check for random (all digits unique)
+    if (hasUniqueDigits(number)) {
       results.random.push(number);
     }
 
+    // Count the frequency of each digit
     const digitCount: {[key: string]: number} = {};
     for (const digit of number) {
       digitCount[digit] = (digitCount[digit] || 0) + 1;
     }
 
+    // Check for double (at least two of the same digits)
     if (Object.values(digitCount).includes(2)) {
       results.double.push(number);
     }
 
+    // Check for triple (at least three of the same digits)
     if (Object.values(digitCount).includes(3)) {
       results.triple.push(number);
     }
