@@ -16,7 +16,7 @@ const CopyButton = ({textToCopy}: {textToCopy: string}) => {
   }, [textToCopy]);
 
   return (
-    <Button onPress={handleShowToast} style={styles.m4}>
+    <Button onPress={handleShowToast} style={styles.flex1}>
       <CopyIcon />
       <Text style={stylesheet.textStyle}>Copy Numbers</Text>
     </Button>

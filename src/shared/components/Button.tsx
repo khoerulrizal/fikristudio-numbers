@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   StyleSheet,
+  TextStyle,
   TouchableOpacity,
   TouchableOpacityProps,
 } from 'react-native';
@@ -13,8 +14,9 @@ const Button = ({
   disabled,
   style,
   children,
+  textStyle,
   ...restProps
-}: TouchableOpacityProps & {text?: string}) => {
+}: TouchableOpacityProps & {text?: string; textStyle?: TextStyle}) => {
   return (
     <TouchableOpacity
       {...restProps}
@@ -23,7 +25,11 @@ const Button = ({
         {backgroundColor: disabled ? '#C7C9CC' : colors.primary},
         style,
       ])}>
-      {text ? <Text style={stylesheet.textStyle}>{text}</Text> : children}
+      {text ? (
+        <Text style={[stylesheet.textStyle, textStyle]}>{text}</Text>
+      ) : (
+        children
+      )}
     </TouchableOpacity>
   );
 };

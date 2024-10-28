@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity, ViewStyle} from 'react-native';
 import Text from './Text';
 import {NumbersType} from '../types/numbers';
 import {colors, getColorOpacity} from '../utils';
@@ -10,8 +10,16 @@ type ChipsProps = {
   value: NumbersType | number;
   onPress: (v: NumbersType | number) => void;
   type?: 'primary' | 'secondary';
+  containerStyle?: ViewStyle;
 };
-const Chips = ({isActive, label, value, onPress, type}: ChipsProps) => {
+const Chips = ({
+  isActive,
+  label,
+  value,
+  onPress,
+  type,
+  containerStyle,
+}: ChipsProps) => {
   return (
     <TouchableOpacity
       onPress={() => onPress(value)}
@@ -27,6 +35,7 @@ const Chips = ({isActive, label, value, onPress, type}: ChipsProps) => {
             ? 'transparent'
             : getColorOpacity(colors.gray, 0.25),
         },
+        containerStyle,
       ])}>
       <Text
         style={StyleSheet.flatten([
